@@ -12,7 +12,7 @@ ISO_NAME := archlinux-$(ISO_VERSION)-x86_64.iso
 
 SSID := $(ARCH_INSTALL_SSID)
 PASSPHRASE := $(ARCH_INSTALL_PASSPHRASE)
-IDENTITY_FILE := $(ARCH_INSTALL_IDENTITY_FILE)
+SSH_PUBLIC_KEY := $(ARCH_INSTALL_SSH_PUBLIC_KEY)
 USB_DEVICE := $(ARCH_INSTALL_USB_DEVICE)
 
 IWD_DIR := $(BUILD_ARCHISO_DIR)/airootfs/var/lib/iwd
@@ -45,7 +45,7 @@ print-cfg:
 	@echo -e '\tCONFIGURATION FILE: $(CONFIGURATION_COMPLETE)'
 	@echo -e '\tSSID: $(SSID)'
 	@echo -e '\tPASSPHRASE: $(PASSPHRASE)'
-	@echo -e '\tIDENTITY_FILE: $(IDENTITY_FILE)'
+	@echo -e '\tSSH_PUBLIC_KEY: $(SSH_PUBLIC_KEY)'
 	@echo -e '\tUSB_DEVICE: $(USB_DEVICE)'
 
 cfg: check-cfg print-cfg
@@ -63,6 +63,7 @@ prepare: clean
 
 archiso-profile:
 	cp -r /usr/share/archiso/configs/releng/* $(BUILD_ARCHISO_DIR)
+	echo "make" >> $(BUILD_ARCHISO_DIR)/packages.x86_64
 
 archiso-iwd:
 	mkdir -p $(IWD_DIR)
@@ -71,7 +72,7 @@ archiso-iwd:
 
 archiso-ssh:
 	mkdir -p $(SSH_DIR)
-	cat $(IDENTITY_FILE) >> $(SSH_DIR)/authorized_keys
+	cat $(SSH_PUBLIC_KEY) >> $(SSH_DIR)/authorized_keys
 
 archiso-archinstall:
 	mkdir -p $(ARCHINSTALL_DIR)
