@@ -1,0 +1,4 @@
+build/
+dist/
+configure.sh
+configure.fish
