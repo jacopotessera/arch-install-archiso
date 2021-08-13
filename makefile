@@ -1,4 +1,4 @@
-.PHONY: clean prepare archiso-profile archiso-iwd archiso-ssh archiso-archinstall archiso usb
+.PHONY: check-cfg print-cfg cfg clean prepare archiso-profile archiso-iwd archiso-ssh archiso-archinstall archiso usb
 
 PACMAN := sudo pacman -Sy --noconfirm
 
