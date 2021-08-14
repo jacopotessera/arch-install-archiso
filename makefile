@@ -64,6 +64,7 @@ prepare: clean
 archiso-profile:
 	cp -r /usr/share/archiso/configs/releng/* $(BUILD_ARCHISO_DIR)
 	echo "make" >> $(BUILD_ARCHISO_DIR)/packages.x86_64
+	echo "git" >> $(BUILD_ARCHISO_DIR)/packages.x86_64
 
 archiso-iwd:
 	mkdir -p $(IWD_DIR)
