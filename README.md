@@ -1,2 +1,2 @@
-# ARCH INSTALL - ARCHISO
+# arch-install-archiso 
 
