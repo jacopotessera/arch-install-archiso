@@ -12,6 +12,7 @@ ISO_NAME := archlinux-$(ISO_VERSION)-x86_64.iso
 
 SSID := $(ARCH_INSTALL_SSID)
 PASSPHRASE := $(ARCH_INSTALL_PASSPHRASE)
+SSH_PRIVATE_KEY := $(ARCH_INSTALL_SSH_PRIVATE_KEY)
 SSH_PUBLIC_KEY := $(ARCH_INSTALL_SSH_PUBLIC_KEY)
 USB_DEVICE := $(ARCH_INSTALL_USB_DEVICE)
 
@@ -45,6 +46,7 @@ print-cfg:
 	@echo -e '\tCONFIGURATION FILE: $(CONFIGURATION_COMPLETE)'
 	@echo -e '\tSSID: $(SSID)'
 	@echo -e '\tPASSPHRASE: $(PASSPHRASE)'
+	@echo -e '\tSSH_PRIVATE_KEY: $(SSH_PRIVATE_KEY)'
 	@echo -e '\tSSH_PUBLIC_KEY: $(SSH_PUBLIC_KEY)'
 	@echo -e '\tUSB_DEVICE: $(USB_DEVICE)'
 
@@ -73,6 +75,8 @@ archiso-iwd:
 
 archiso-ssh:
 	mkdir -p $(SSH_DIR)
+	cp $(SSH_PRIVATE_KEY) $(SSH_DIR)
+	cp $(SSH_PUBLIC_KEY) $(SSH_DIR)
 	cat $(SSH_PUBLIC_KEY) >> $(SSH_DIR)/authorized_keys
 
 archiso-archinstall:
