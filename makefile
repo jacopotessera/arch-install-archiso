@@ -74,6 +74,8 @@ archiso-iwd:
 	sed -i 's|$${iwd_passphrase}|$(PASSPHRASE)|' $(IWD_FILENAME_COMPLETE)
 
 archiso-ssh:
+	mkdir -p archlive/airootfs/etc/systemd/system/multi-user.target.wants
+	ln -sf /usr/lib/systemd/system/sshd.service archlive/airootfs/etc/systemd/system/multi-user.target.wants/
 	mkdir -p $(SSH_DIR)
 	cp $(SSH_PRIVATE_KEY) $(SSH_DIR)
 	cp $(SSH_PUBLIC_KEY) $(SSH_DIR)
@@ -86,6 +88,6 @@ archiso-archinstall:
 archiso: cfg prepare archiso-profile archiso-iwd archiso-ssh archiso-archinstall
 	sudo mkarchiso -v -w $(BUILD_WORK_DIR) -o $(DIST_DIR) $(BUILD_ARCHISO_DIR)
 
-usb: cfg archiso
+usb: cfg
 	sudo dd bs=4M if=$(DIST_DIR)/$(ISO_NAME) of=/dev/$(USB_DEVICE) conv=fsync oflag=direct status=progress
 
